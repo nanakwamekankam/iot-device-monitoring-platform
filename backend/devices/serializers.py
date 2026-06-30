@@ -40,3 +40,11 @@ class AlertSerializer(serializers.ModelSerializer):
             "resolved",
             "created_at",
         ]
+
+
+class TelemetryIngestSerializer(serializers.Serializer):
+    device_id = serializers.CharField()
+    temperature = serializers.FloatField()
+    humidity = serializers.FloatField()
+    battery_level = serializers.FloatField()
+    signal_strength = serializers.FloatField()
