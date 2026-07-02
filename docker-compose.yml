@@ -1,0 +1,23 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: iot-backend
+    ports:
+      - "8000:8000"
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: iot-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+
+  simulator:
+    build:
+      context: ./simulator
+    container_name: iot-simulator
+    depends_on:
+      - backend

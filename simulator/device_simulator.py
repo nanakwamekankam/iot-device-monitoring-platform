@@ -2,9 +2,13 @@ import time
 import random
 import requests
 from datetime import datetime
+import sys
+from requests.exceptions import RequestException
 
 
-API_URL = "http://127.0.0.1:8000/api/telemetry/ingest/"
+# API_URL = "http://127.0.0.1:8000/api/telemetry/ingest/"
+
+API_URL = "http://backend:8000/api/telemetry/ingest/"
 
 DEVICES = ["edge-001", "edge-002", "edge-003"]
 
@@ -34,10 +38,32 @@ def send_telemetry(payload):
         if response.status_code in [200, 201]:
             print(f"Sent: {payload}")
         else:
-            print(f"Failed: {response.status_code} - {response.text}")
+            print(f"Failed ({response.status_code})")
+            print(response.text[:500])
 
     except requests.exceptions.RequestException as error:
         print(f"Connection error: {error}")
+
+
+def wait_for_backend():
+    """
+    Wait until the backend is accepting HTTP requests.
+    """
+    print("Waiting for backend...")
+
+    while True:
+        try:
+            response = requests.get("http://backend:8000/api/devices/", timeout=3)
+
+            if response.status_code == 200:
+                print("Backend is ready.")
+                return
+
+        except RequestException:
+            pass
+
+        print("Backend not ready. Retrying in 3 seconds...")
+        time.sleep(3)
 
 
 def run_simulator():
@@ -53,4 +79,5 @@ def run_simulator():
 
 
 if __name__ == "__main__":
+    wait_for_backend()
     run_simulator()
