@@ -6,6 +6,11 @@ __pycache__/
 venv/
 iotmonitor/
 
+# AWS
+aws/
+*.pem
+
+
 # Django
 backend/db.sqlite3
 backend/staticfiles/
