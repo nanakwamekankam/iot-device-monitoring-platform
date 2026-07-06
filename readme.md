@@ -1,74 +1,131 @@
-This project was built to demonstrate end-to-end IoT application development using modern cloud-native technologies. It simulates edge devices that publish telemetry, processes that telemetry through a Django REST API, visualizes device health in a React dashboard, and deploys the entire stack on AWS using Docker. The project serves as a practical demonstration of backend development, frontend development, cloud infrastructure, and container orchestration.
-
 # IoT Device Monitoring Platform
 
-A full-stack IoT monitoring platform built with Django, React, Docker, and AWS.
+A full-stack IoT monitoring platform built with Django REST Framework, React, Docker, and AWS EC2.
 
-This project simulates edge IoT devices that continuously transmit telemetry to a Django REST API. The backend stores telemetry, generates alerts when thresholds are exceeded, and exposes REST endpoints that are consumed by a React dashboard.
-
-The project demonstrates cloud deployment, containerization, REST API development, and full-stack application design.
+This project simulates IoT edge devices transmitting telemetry to a REST API. Incoming telemetry is stored, monitored for threshold violations, and displayed in a real-time React dashboard. The entire application is containerized with Docker Compose and deployed on an AWS EC2 instance.
 
 ---
 
-## Technologies
+## Dashboard
 
-### Backend
+
+![Dashboard](screenshots/frontend_dashboard.png)
+
+---
+
+## Devices
+
+![Devices](screenshots/devices.png)
+
+---
+
+## Alerts
+
+![Alerts](screenshots/alerts.png)
+
+---
+
+## Telemetry
+
+![Alerts](screenshots/telemetry.png)
+
+---
+
+# Features
+
+- Simulated IoT device fleet
+- Continuous telemetry generation
+- Automatic alert generation
+- Django REST API
+- React dashboard
+- Interactive telemetry visualization
+- Dockerized backend and frontend
+- AWS EC2 deployment
+- RESTful architecture
+
+---
+
+# Technology Stack
+
+## Backend
 
 - Django
 - Django REST Framework
+- SQLite
 
-### Frontend
+## Frontend
 
 - React
 - Vite
 - Axios
 - Recharts
 
-### Cloud
-
-- AWS EC2 (Ubuntu 24.04)
-
-### DevOps
+## Infrastructure
 
 - Docker
 - Docker Compose
+- AWS EC2
+- Ubuntu 24.04
+
+## Development
+
 - Git
 - GitHub
 
 ---
 
-## Architecture
+# System Architecture
 
-                    AWS EC2 (Ubuntu)
-                           │
+```
+                 AWS EC2 (Ubuntu)
+
                      Docker Compose
-                           │
-      ┌────────────────────┼────────────────────┐
-      │                    │                    │
-      ▼                    ▼                    ▼
- Django Backend      React Frontend      Device Simulator
-      │                                        │
-      └────────────── REST API ────────────────┘
-                           │
-                     SQLite Database
+
+      ┌─────────────────────────────────────┐
+      │                                     │
+      │         React Frontend              │
+      │               │                     │
+      │          REST API                   │
+      │               │                     │
+      │        Django Backend               │
+      │               │                     │
+      │          SQLite Database            │
+      │                                     │
+      └─────────────────────────────────────┘
+                    ▲
+                    │
+             Device Simulator
+```
 
 ---
 
-## Features
+# Project Structure
 
-- Device registration
-- Simulated IoT telemetry generation
-- Automatic alert generation
-- Django REST API
-- React dashboard
-- Dockerized backend
-- Dockerized frontend
-- Dockerized device simulator
-- Cloud deployment on AWS EC2
+```
+iot-device-monitoring-platform/
+
+backend/
+frontend/
+simulator/
+
+docker-compose.yml
+
+README.md
+```
 
 ---
 
-## Running Locally
+# REST API
+
+| Endpoint | Description |
+|----------|-------------|
+| `/api/devices/` | List all devices |
+| `/api/telemetry/` | Device telemetry |
+| `/api/alerts/` | Generated alerts |
+
+---
+
+# Running Locally
 
 Clone the repository
 
@@ -77,61 +134,72 @@ git clone https://github.com/nanakwamekankam/iot-device-monitoring-platform.git
 cd iot-device-monitoring-platform
 ```
 
-## Docker compose
+Build and start all services
 
-Build and startall services(Docker containers)
-
-``` bash
-docker compose up -d -build
+```bash
+docker compose up -d --build
 ```
-Likewise to stop all services
 
-``` bash
+Stop all services
+
+```bash
 docker compose down
 ```
 
-## Docker
+---
 
-Build only the backend
+# Backend Only
+
+Build
 
 ```bash
-docker build -t iot-backend ./backend 
+docker build -t iot-backend ./backend
 ```
 
-Run only the backend
+Run
 
-```bash 
+```bash
 docker run --rm -p 8000:8000 iot-backend
 ```
 
-Apply migrations inside the container
+Run migrations
 
 ```bash
 docker run --rm iot-backend python manage.py migrate
 ```
 
-# Deployment Workflow
+---
 
-Clone the latest code
+# Deployment
+
+Pull latest changes
 
 ```bash
 git pull
 ```
 
-Stop existing containers
+Rebuild
 
 ```bash
 docker compose down
-```
 
-Build and deploy
-
-```bash 
 docker compose up -d --build
 ```
 
-Verify deployment
+Verify
 
-```bash 
+```bash
 docker compose ps
 ```
+
+---
+
+# Skills Demonstrated
+
+- Full-stack application development
+- REST API design
+- React frontend development
+- Docker containerization
+- Cloud deployment on AWS EC2
+- Git-based deployment workflow
+- Client-server architecture
