@@ -6,6 +6,9 @@ __pycache__/
 venv/
 iotmonitor/
 
+#notes
+personal_notes.txt
+
 # AWS
 aws/
 *.pem
