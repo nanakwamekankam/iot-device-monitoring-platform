@@ -214,7 +214,7 @@ Preview infrastructure changes
 terraform plan
 ```
 
-![Teraform](screenshots/teraform-plan-output.png)
+![Terafrom_preview](screenshots/terraform-plan-output.png)
 
 Provision infrastructure
 
