@@ -11,7 +11,7 @@ function TelemetryChart({ data, dataKey, title }) {
       <ResponsiveContainer>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="timestamp" />
+          <XAxis dataKey="created_at" />
           <YAxis />
           <Tooltip />
           <Line type="monotone" dataKey={dataKey} />
