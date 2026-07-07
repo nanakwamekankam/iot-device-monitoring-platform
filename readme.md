@@ -1,47 +1,47 @@
 # IoT Device Monitoring Platform
 
-A full-stack IoT monitoring platform built with Django REST Framework, React, Docker, and AWS EC2.
+A cloud-native IoT monitoring platform built with **Django REST Framework, React, Docker, Terraform, and AWS EC2**.
 
-This project simulates IoT edge devices transmitting telemetry to a REST API. Incoming telemetry is stored, monitored for threshold violations, and displayed in a real-time React dashboard. The entire application is containerized with Docker Compose and deployed on an AWS EC2 instance.
+This project simulates IoT edge devices transmitting telemetry to a REST API. Incoming telemetry is processed by a Django backend, stored in a database, evaluated for alert conditions, and visualized through an interactive React dashboard. The application is fully containerized with Docker Compose, deployed on AWS EC2, and includes Terraform infrastructure definitions for reproducible cloud deployments.
 
 ---
 
-## Dashboard
+# Project Highlights
 
+- Simulated fleet of IoT edge devices
+- Continuous telemetry ingestion
+- Automatic alert generation
+- Django REST API
+- Interactive React dashboard
+- Dockerized backend, frontend, and simulator
+- AWS EC2 cloud deployment
+- Infrastructure as Code using Terraform
+- Reproducible cloud provisioning
+- RESTful architecture
+
+---
+
+# Dashboard
 
 ![Dashboard](screenshots/frontend_dashboard.png)
 
 ---
 
-## Devices
+# Devices
 
 ![Devices](screenshots/devices.png)
 
 ---
 
-## Alerts
+# Alerts
 
 ![Alerts](screenshots/alerts.png)
 
 ---
 
-## Telemetry
+# Telemetry
 
-![Alerts](screenshots/telemetry.png)
-
----
-
-# Features
-
-- Simulated IoT device fleet
-- Continuous telemetry generation
-- Automatic alert generation
-- Django REST API
-- React dashboard
-- Interactive telemetry visualization
-- Dockerized backend and frontend
-- AWS EC2 deployment
-- RESTful architecture
+![Telemetry](screenshots/telemetry.png)
 
 ---
 
@@ -65,6 +65,7 @@ This project simulates IoT edge devices transmitting telemetry to a REST API. In
 - Docker
 - Docker Compose
 - AWS EC2
+- Terraform
 - Ubuntu 24.04
 
 ## Development
@@ -76,41 +77,42 @@ This project simulates IoT edge devices transmitting telemetry to a REST API. In
 
 # System Architecture
 
-```
-                 AWS EC2 (Ubuntu)
+```text
+                 Simulated IoT Devices
+                          │
+                          ▼
+                 Django REST API
+                          │
+                 Alert Processing
+                          │
+                    SQLite Database
+                          │
+                          ▼
+                 React Dashboard
+                          │
+                    Docker Compose
+                          │
+                    AWS EC2 (Ubuntu)
 
-                     Docker Compose
-
-      ┌─────────────────────────────────────┐
-      │                                     │
-      │         React Frontend              │
-      │               │                     │
-      │          REST API                   │
-      │               │                     │
-      │        Django Backend               │
-      │               │                     │
-      │          SQLite Database            │
-      │                                     │
-      └─────────────────────────────────────┘
-                    ▲
-                    │
-             Device Simulator
+          Infrastructure Provisioned by Terraform
 ```
 
 ---
 
 # Project Structure
 
-```
+```text
 iot-device-monitoring-platform/
 
-backend/
-frontend/
-simulator/
-
-docker-compose.yml
-
-README.md
+├── backend/
+├── frontend/
+├── simulator/
+├── infrastructure/
+│   └── terraform/
+├── screenshots/
+├── docker-compose.yml
+├── README.md
+└── .gitignore
 ```
 
 ---
@@ -119,9 +121,10 @@ README.md
 
 | Endpoint | Description |
 |----------|-------------|
-| `/api/devices/` | List all devices |
-| `/api/telemetry/` | Device telemetry |
-| `/api/alerts/` | Generated alerts |
+| `/api/devices/` | List all registered devices |
+| `/api/telemetry/` | Retrieve telemetry readings |
+| `/api/alerts/` | Retrieve generated alerts |
+| `/api/telemetry/ingest/` | Receive simulated telemetry |
 
 ---
 
@@ -131,16 +134,31 @@ Clone the repository
 
 ```bash
 git clone https://github.com/nanakwamekankam/iot-device-monitoring-platform.git
+
 cd iot-device-monitoring-platform
 ```
 
 Build and start all services
 
 ```bash
-docker compose up -d --build
+docker compose up --build
 ```
 
-Stop all services
+Access the application
+
+Frontend
+
+```
+http://localhost:5173
+```
+
+Backend API
+
+```
+http://localhost:8000/api/
+```
+
+Stop services
 
 ```bash
 docker compose down
@@ -148,41 +166,19 @@ docker compose down
 
 ---
 
-# Backend Only
+# Deploying to AWS EC2
 
-Build
+Clone the repository
 
 ```bash
-docker build -t iot-backend ./backend
+git clone https://github.com/nanakwamekankam/iot-device-monitoring-platform.git
+
+cd iot-device-monitoring-platform
 ```
 
-Run
+Build and start
 
 ```bash
-docker run --rm -p 8000:8000 iot-backend
-```
-
-Run migrations
-
-```bash
-docker run --rm iot-backend python manage.py migrate
-```
-
----
-
-# Deployment
-
-Pull latest changes
-
-```bash
-git pull
-```
-
-Rebuild
-
-```bash
-docker compose down
-
 docker compose up -d --build
 ```
 
@@ -194,12 +190,57 @@ docker compose ps
 
 ---
 
+# Terraform Infrastructure
+
+Terraform files are located in:
+
+```text
+infrastructure/terraform/
+```
+
+Validate configuration
+
+```bash
+terraform fmt
+
+terraform init
+
+terraform validate
+```
+
+Preview infrastructure changes
+
+```bash
+terraform plan
+```
+
+![Teraform](screenshots/teraform-plan-output.png)
+
+Provision infrastructure
+
+```bash
+terraform apply
+```
+
+Destroy infrastructure
+
+```bash
+terraform destroy
+```
+
+> **Note:** Terraform provisions a new EC2 instance and security group. It does not manage the manually created EC2 instance used during development.
+
+---
+
 # Skills Demonstrated
 
-- Full-stack application development
-- REST API design
+- Full-stack software engineering
+- REST API development
 - React frontend development
+- Infrastructure as Code (Terraform)
 - Docker containerization
 - Cloud deployment on AWS EC2
+- Cloud networking (Security Groups)
+- Linux server administration
 - Git-based deployment workflow
 - Client-server architecture
