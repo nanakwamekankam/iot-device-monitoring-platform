@@ -4,6 +4,15 @@ A cloud-native IoT monitoring platform built with **Django REST Framework**, **R
 
 This project simulates a fleet of IoT edge devices transmitting telemetry to a REST API. Incoming telemetry is stored in a database, monitored for threshold violations, and displayed through a responsive React dashboard. The application is containerized with Docker Compose, deployed on AWS EC2, and the cloud infrastructure can be recreated using Terraform.
 
+## Key Highlights
+
+- Built a full-stack IoT monitoring platform using Django and React
+- Simulated real-time telemetry from edge devices
+- Containerized the application with Docker Compose
+- Deployed the application on AWS EC2
+- Provisioned cloud infrastructure using Terraform
+- Implemented RESTful APIs and interactive data visualizations
+
 ---
 
 # Dashboard
