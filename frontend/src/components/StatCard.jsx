@@ -4,16 +4,18 @@
 // Active Alerts: 2
 // Telemetry Records: 120
 
-function StatCard({ title, value }) {
+function StatCard({ title, value, subtitle, icon, accent = "blue" }) {
   return (
-    <div style={{
-      border: "1px solid #ddd",
-      padding: "16px",
-      borderRadius: "8px",
-      minWidth: "160px"
-    }}>
-      <h3>{title}</h3>
-      <p style={{ fontSize: "24px", fontWeight: "bold" }}>{value}</p>
+    <div className={`stat-card stat-card-${accent}`}>
+      <div className="stat-card-top">
+        <div>
+          <p className="stat-title">{title}</p>
+          <h2 className="stat-value">{value}</h2>
+        </div>
+        {icon && <span className="stat-icon">{icon}</span>}
+      </div>
+
+      {subtitle && <p className="stat-subtitle">{subtitle}</p>}
     </div>
   );
 }

@@ -19,37 +19,60 @@ function Devices() {
     }
 
     loadDevices();
+  // Refresh every 5 seconds
+  const interval = setInterval(loadDevices, 5000);
+
+  // Cleanup
+  return () => clearInterval(interval);
   }, []);
 
   return (
     <div>
-      <h1>Devices</h1>
+      <div className="page-header">
+        <p className="eyebrow">Device fleet</p>
+        <h1>Devices</h1>
+        <p className="page-description">
+          View registered IoT devices, current status, and deployment locations.
+        </p>
+      </div>
 
-      <table border="1" cellPadding="8" style={{ borderCollapse: "collapse", width: "100%" }}>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Device Name</th>
-            <th>Status</th>
-            <th>Location</th>
-            <th>Detail</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {devices.map((device) => (
-            <tr key={device.id}>
-              <td>{device.id}</td>
-              <td>{device.name}</td>
-              <td>{device.status}</td>
-              <td>{device.location}</td>
-              <td>
-                <Link to={`/devices/${device.id}`}>View</Link>
-              </td>
+      <section className="card table-card">
+        <table className="data-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Device Name</th>
+              <th>Status</th>
+              <th>Location</th>
+              <th></th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {devices.map((device) => (
+              <tr key={device.id}>
+                <td>{device.id}</td>
+                <td className="table-strong">{device.name}</td>
+                <td>
+                  <span className={`status-badge status-${device.status}`}>
+                    {device.status}
+                  </span>
+                </td>
+                <td>{device.location}</td>
+                <td>
+                  <Link className="table-link" to={`/devices/${device.id}`}>
+                    View details
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {devices.length === 0 && (
+          <p className="empty-state">No devices found.</p>
+        )}
+      </section>
     </div>
   );
 }
