@@ -23,7 +23,7 @@ Dashboard shows telemetry readings with time stamps
 
 ## Devices
 The list of devices
-![Devices](screenshots/frontend-devices-page.png.png)
+![Devices](screenshots/frontend-devices-page.png)
 
 
 ##  Alerts
