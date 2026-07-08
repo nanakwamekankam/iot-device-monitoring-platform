@@ -14,40 +14,51 @@ This project simulates a fleet of IoT edge devices transmitting telemetry to a R
 - Implemented RESTful APIs and interactive data visualizations
 
 ---
+# Frontend Pages
 
-# Dashboard
+## Dashboard
+Dashboard shows telemetry readings with time stamps
+![Dashboard](screenshots/frontend-dashboard-page.png)
 
-![Dashboard](screenshots/frontend_dashboard.png)
+
+## Devices
+The list of devices
+![Devices](screenshots/frontend-devices-page.png.png)
+
+
+##  Alerts
+Alerts for when device telemetry readings reach or surpass thresholds
+![Alerts](screenshots/frontend-alerts-page.png)
+
+
+---
+
+# Backend Databases
+
+## Devices
+Database of Devices being monitored
+![Devices](screenshots/backend-devices-page.png)
+
+##  Telemetry
+Backend Telemetry Logs when simulator is running
+![Telemetry](screenshots/backend-telemtry-log.png)
+
+##  Alerts
+Alerts Database when telemetry reaches or passes threshold
+![Alerts](screenshots/backend-alerts.png)
 
 ---
 
-# Devices
-
-![Devices](screenshots/devices.png)
-
----
-
-# Alerts
-
-![Alerts](screenshots/alerts.png)
-
----
-
-# Telemetry
-
-![Telemetry](screenshots/telemetry.png)
-
----
 
 # Features
 
 - Simulated fleet of IoT devices
 - Automatic telemetry generation
 - Threshold-based alert generation
-- Django REST API
-- React dashboard
+- Django REST API serving telemetry, device, and alert data.
+- React dashboard (automatically refreshes every 5 seconds to display the latest device status, telemetry, and alerts.)
 - Interactive telemetry visualization
-- Dockerized backend and frontend
+- Dockerized backend and frontend deployment on AWS EC2 with Terraform-managed infrastructure.
 - Infrastructure as Code using Terraform
 - AWS EC2 deployment
 - RESTful architecture
